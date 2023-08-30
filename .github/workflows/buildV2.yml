@@ -3,7 +3,7 @@ name: Build V2
 on: 
   push:
     branches:
-      - V2
+      - v2
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3.6.0
       with:
-        ref: V2
+        ref: v2
     
     - name: Install Node.js
       uses: actions/setup-node@v3
