@@ -1,0 +1,74 @@
+name: Build V2
+
+on: 
+  push:
+    branches:
+      - V2
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      GOOS: "windows"
+      GOARCH: "amd64"
+      
+    steps:
+    - uses: actions/checkout@v3.6.0
+      with:
+        ref: V2
+    
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2.2.4
+      with:
+        version: 7
+        run_install: false          
+          
+    - name: Install go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '^1.13.1'
+          
+    - name: build AHK
+      uses: CCCC-L/Action-Ahk2Exe@v1.0.0
+      with:
+        in: MyKeymap.ahk
+   
+    - name: build vue
+      shell: pwsh
+      run: |
+        cd ./config-ui
+        npm install
+        npm run build
+        cp ../cofnig-back/templates ./
+
+
+    - name: build go
+      shell: pwsh
+      run: |
+        cd ./config-back
+        go build -ldflags "-s -w"
+        cp settings.exe ../bin
+      
+    - name: copy files
+      shell: pwsh
+      run: |
+        mkdir MyKeymap
+        cp -r -Force ./bin ./Mykeymap
+        cp -r -Force ./data ./Mykeymap
+        cp -r -Force ./shortcuts ./Mykeymap
+        cp -r -Force ./tools ./Mykeymap
+
+        cp -Force ./MyKeymap.exe ./Mykeymap
+        cp -Force ./config-back/settings.exe ./Mykeymap/bin
+        cp -r -Force ./config-back/templates ./Mykeymap/bin/
+        cp -Force ./config-ui/index.html ./Mykeymap/bin/templates
+        cp -r -Force ./config-ui/dist ./Mykeymap/bin/site
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: MyKeymap
+        path: MyKeymap
