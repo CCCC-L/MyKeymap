@@ -48,15 +48,12 @@ jobs:
         cd ./config-ui
         npm install
         npm run build
-        cp ../cofnig-back/templates ./
-
 
     - name: build go
       shell: pwsh
       run: |
-        cd ./config-back
+        cd ./config-server
         go build -ldflags "-s -w"
-        cp settings.exe ../bin
       
     - name: copy files
       shell: pwsh
@@ -68,8 +65,8 @@ jobs:
         cp -r -Force ./tools ./Mykeymap
 
         cp -Force ./MyKeymap.exe ./Mykeymap
-        cp -Force ./config-back/settings.exe ./Mykeymap/bin
-        cp -r -Force ./config-back/templates ./Mykeymap/bin/
+        cp -Force ./config-server/settings.exe ./Mykeymap/bin
+        cp -r -Force ./config-server/templates ./Mykeymap/bin/
         cp -Force ./config-ui/index.html ./Mykeymap/bin/templates
         cp -r -Force ./config-ui/dist ./Mykeymap/bin/site
 
