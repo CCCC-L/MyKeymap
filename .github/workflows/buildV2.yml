@@ -53,7 +53,7 @@ jobs:
       shell: pwsh
       run: |
         cd ./config-server
-        go build -ldflags "-s -w"
+        go build -ldflags "-s -w" ./cmd/settings
       
     - name: copy files
       shell: pwsh
