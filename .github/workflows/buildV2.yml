@@ -1,9 +1,14 @@
 name: Build V2
 
 on: 
+  workflow_dispatch:
   push:
     branches:
       - v2
+    paths-ignore:
+      - '.github/workflows/*'
+      - '*.md'
+      - '.gitignore'
 
 jobs:
   build:
