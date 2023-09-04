@@ -40,7 +40,7 @@ jobs:
     - name: build AHK
       uses: CCCC-L/Action-Ahk2Exe@v1.0.0
       with:
-        in: MyKeymap.ahk
+        in: Launcher.ahk
    
     - name: build vue
       shell: pwsh
@@ -48,6 +48,8 @@ jobs:
         cd ./config-ui
         npm install
         npm run build
+        # 删除多于字体
+        Get-ChildItem -Path ./dist/assets -Include *.woff,*.eot,*.ttf -File -Recurse | rm
 
     - name: build go
       shell: pwsh
