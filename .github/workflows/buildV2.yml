@@ -63,7 +63,6 @@ jobs:
         mkdir MyKeymap
         cp -r -Force ./bin ./Mykeymap
         cp -r -Force ./data ./Mykeymap
-        cp -r -Force ./shortcuts ./Mykeymap
         cp -r -Force ./tools ./Mykeymap
 
         cp -Force ./MyKeymap.exe ./Mykeymap
