@@ -25,13 +25,8 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 16
-    - name: Install pnpm
-      uses: pnpm/action-setup@v2.2.4
-      with:
-        version: 7
-        run_install: false          
-          
+        node-version: 16      
+
     - name: Install go
       uses: actions/setup-go@v4
       with:
