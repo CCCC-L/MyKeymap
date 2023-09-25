@@ -35,7 +35,7 @@ jobs:
     - name: build AHK
       uses: CCCC-L/Action-Ahk2Exe@v1.0.0
       with:
-        in: Launcher.ahk
+        in: bin/Launcher.ahk
    
     - name: build vue
       shell: pwsh
